@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Text, StyleSheet, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
 
 import Sineta from '../../assets/sineta.png'
-import requests from '../services/requests'
+import cadastrarUsuario from '../services/cadastrarUsuario'
 
 export default _ => {
     const navigation = useNavigation()
@@ -11,9 +11,14 @@ export default _ => {
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
-    const [aut, setAut] = useState(false);
+    const [privilegios, setPrivilegio] = useState(0)
 
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    const onPressPrivilegio = _ => {
+        setPrivilegio(1)
+    }
+
 
     const onPressSend = () => {
         if (nome !== '' && email !== '' && senha !== '') {
@@ -21,12 +26,13 @@ export default _ => {
                 Alert.alert('formatação de email inválido.')
             }
             else {
-                const response = requests(nome, email, senha).then(response => {
+                cadastrarUsuario(nome, email, senha, privilegios).then(response => {
                     Alert.alert('Realize o login')
-                    navigation.navigate('Login') 
+                    console.log(response)
+                    navigation.navigate('Login')
                 }).catch(erro => {
-                    Alert.alert('Ocorreu um erro no cadastro.')
-                } )
+                    Alert.alert(`Ocorreu um erro no cadastro. ${erro}`)
+                })
             }
         }
         else {
@@ -72,6 +78,10 @@ export default _ => {
                         </View>
                     </View>
                 </View>
+                <TouchableOpacity style={style.privilegioButton}
+                    onPress={onPressPrivilegio}>
+                    <Text style={style.privilegioButtonText}>Administrador</Text>
+                </TouchableOpacity>
                 <View style={style.containerButton}>
                     <View style={style.buttons}>
                         <TouchableOpacity style={style.button}
@@ -83,9 +93,6 @@ export default _ => {
                             <Text style={style.buttonTitle}>Login</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-                <View style={style.footer}>
-                    <Text style={style.footerTitle}>Desenvolvido por Elizane e Pedro</Text>
                 </View>
             </View>
         </>
@@ -166,18 +173,14 @@ var style = StyleSheet.create({
     buttonTitle: {
         color: '#FFFFFF'
     },
-    footer: {
-        backgroundColor: '#7B9CCC',
-        position: 'absolute',
-        top: 810,
-        width: '100%',
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center'
+    privilegioButton: {
+        backgroundColor: '#253E60',
+        borderRadius: 8,
+        padding: 5,
+        marginTop: 10,
+        alignSelf: 'center'
     },
-    footerTitle: {
-        color: '#FFFFFF',
-        fontSize: 17,
-        lineHeight: 18
+    privilegioButtonText: {
+        color: '#FFFFFF'
     }
 })
