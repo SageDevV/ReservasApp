@@ -1,8 +1,13 @@
+import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { Text, StyleSheet, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
+
 import Sineta from '../../assets/sineta.png'
+import requests from '../services/requests'
 
 export default _ => {
+    const navigation = useNavigation()
+
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -11,24 +16,26 @@ export default _ => {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const onPressSend = () => {
-        if (nome !== '' && email !== '', senha !== '') {
+        if (nome !== '' && email !== '' && senha !== '') {
             if (emailRegex.test(email) == false) {
-                Alert.alert('formatação de email inválido')
+                Alert.alert('formatação de email inválido.')
             }
             else {
-                Alert.alert('Aguarde o request...')
-                //RealizarRequest
-                setAut(true)
+                const response = requests(nome, email, senha).then(response => {
+                    Alert.alert('Realize o login')
+                    navigation.navigate('Login') 
+                }).catch(erro => {
+                    Alert.alert('Ocorreu um erro no cadastro.')
+                } )
             }
         }
         else {
-            Alert.alert('Coloque todas as informações')
+            Alert.alert('Coloque todas as informações.')
         }
     }
 
     const onPressNavigateTo = () => {
-        Alert.alert('Tela de login não construida ainda')
-        //Navegar para login
+        navigation.navigate('Login')
     }
     return (
         <>

@@ -1,13 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native';
-import Cadastro from './src/views/Cadastro';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
+import Cadastro from './src/views/Cadastro';
+import Login from './src/views/Login';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
-      <Cadastro/>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Home'
+          screenOptions={{headerShown: false}}>
+          <Stack.Screen name='Home' component={Cadastro} />
+          <Stack.Screen name='Login' component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 }
