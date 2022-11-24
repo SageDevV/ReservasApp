@@ -16,9 +16,18 @@ export default _ => {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const onPressPrivilegio = _ => {
-        setPrivilegio(1)
+        if (privilegios == 0) {
+            return setPrivilegio(1)
+        }
+        setPrivilegio(0)
     }
 
+    function setStylePrivilegios() {
+        if (privilegios === 1) {
+            return style.privilegioButtonAtivado
+        }
+        return style.privilegioButton
+    }
 
     const onPressSend = () => {
         if (nome !== '' && email !== '' && senha !== '') {
@@ -78,7 +87,7 @@ export default _ => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={style.privilegioButton}
+                <TouchableOpacity style={setStylePrivilegios()}
                     onPress={onPressPrivilegio}>
                     <Text style={style.privilegioButtonText}>Administrador</Text>
                 </TouchableOpacity>
@@ -175,6 +184,13 @@ var style = StyleSheet.create({
     },
     privilegioButton: {
         backgroundColor: '#253E60',
+        borderRadius: 8,
+        padding: 5,
+        marginTop: 10,
+        alignSelf: 'center'
+    },
+    privilegioButtonAtivado: {
+        backgroundColor: '#7B9CCC',
         borderRadius: 8,
         padding: 5,
         marginTop: 10,

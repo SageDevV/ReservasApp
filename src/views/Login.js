@@ -19,8 +19,15 @@ export default _ => {
 
     const onPressSend = () => {
         const resultado = loginUsuario(email, senha).then(response => {
-            if(response.data === 'Usuário encontrado.'){
+            console.log(response)
+            if(response.data.privilegio === 0){
                 Alert.alert('Usuário encontrado.')
+                navigation.navigate('CadastroReservas')
+            }
+            else if(response.data.privilegio === 1){
+                Alert.alert('Usuário encontrado.')
+                Alert.alert('Tela de aprovações não construida ainda.')
+                //Navegar para a tela de aprovação
             }
             else{
                 Alert.alert('Usuario não encontrado.')
@@ -74,7 +81,7 @@ export default _ => {
     )
 }
 
-var style = StyleSheet.create({
+const style = StyleSheet.create({
     container: {
         backgroundColor: '#CED8E9',
         flex: 1,
