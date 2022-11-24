@@ -1,14 +1,38 @@
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { useState } from 'react'
+
+import { getReservas } from '../services/reservas';
 
 import lupa from '../../assets/lupa.png'
 
-export default _ => {
+export default (props) => {
+    const [filter, setFilter] = useState(false)
+
+    const requestReservas = _ => {
+        if(filter === false){
+            setFilter(true)
+            getReservas(props.bloco).then(response => {
+                props.setReservas(response.data)
+            }).catch(erro => {
+                console.log(erro)
+            })
+        }
+        else{
+            setFilter(false)
+        }
+    }
+
     return (
         <View style={style.containerFiltro}>
             <Text style={style.titleContainerFiltro}>Insira o Bloco</Text>
             <View style={style.containerInput} >
-                <Image source={lupa} style={style.lupaInput} />
-                <TextInput style={style.textInput} />
+                <TouchableOpacity
+                    onPress={requestReservas}>
+                    <Image source={lupa} style={style.lupaInput} />
+                </TouchableOpacity>
+                <TextInput style={style.textInput}
+                    value={props.bloco}
+                    onChangeText={props.setbloco}/>
             </View>
             <View style={style.containerButtonsFiltro}>
                 <TouchableOpacity style={style.buttonFiltro}>
@@ -85,7 +109,7 @@ const style = StyleSheet.create({
         lineHeight: 20,
         color: '#FFFFFF'
     },
-    buttonLimpar:{
+    buttonLimpar: {
         width: 80,
         height: 25,
         borderRadius: 8,

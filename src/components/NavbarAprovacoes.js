@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
+
+
 export default _ => {
     return (
         <View style={style.containerNavBar}>

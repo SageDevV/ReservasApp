@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Alert } from 'react-native'
 
-import semReserva from '../../assets/semReserva.png'
+import semReserva from '../../assets/semReserva.png';
 
 export default () => {
     return (
@@ -51,11 +51,11 @@ const style = StyleSheet.create({
         alignItems: 'center',
         marginTop: 5
     },
-    infoImage:{
+    infoImage: {
         width: 8,
         height: 8
     },
-    infoText:{
+    infoText: {
         fontSize: 15,
         lineHeight: 20,
         color: '#FFFFFF',
