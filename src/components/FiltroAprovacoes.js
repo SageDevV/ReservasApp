@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
 import { useState } from 'react'
 
-import { getReservas } from '../services/reservas';
+import { getReservas, getSalas } from '../services/reservas';
 
 import lupa from '../../assets/lupa.png'
 

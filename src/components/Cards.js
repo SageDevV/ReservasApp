@@ -1,22 +1,66 @@
 import { View, Text, StyleSheet, Image, Alert } from 'react-native'
 
 import semReserva from '../../assets/semReserva.png';
+import reservado from '../../assets/reservado.png';
+import reservaReprovada from '../../assets/reservaReprovada.png';
 
-export default () => {
+export default (props) => {
+
+    const renderizarReservas = props.reservas.map((value, index) => {
+        if (value.status === null) {
+            return (
+                <View style={style.card}>
+                    <View style={style.containerTipoInfo}>
+                        <Text style={style.tipoInfo}>Status</Text>
+                        <Text style={style.tipoInfo}>Data</Text>
+                        <Text style={style.tipoInfo}>Horario</Text>
+                    </View>
+                    <View style={style.containerInfo}>
+                        <Image source={semReserva} style={style.infoImage}></Image>
+                        <Text style={style.infoText}></Text>
+                        <Text style={style.infoText}>-</Text>
+                    </View>
+                </View>
+            )
+        }
+        if (value.status === 0) {
+            return (
+                <View style={style.card}>
+                    <View style={style.containerTipoInfo}>
+                        <Text style={style.tipoInfo}>Status</Text>
+                        <Text style={style.tipoInfo}>Data</Text>
+                        <Text style={style.tipoInfo}>Horario</Text>
+                    </View>
+                    <View style={style.containerInfo}>
+                        <Image source={reservado} style={style.infoImage}></Image>
+                        <Text style={style.infoText}>{value.data}</Text>
+                        <Text style={style.infoText}>{value.rangeHora}</Text>
+                    </View>
+                </View>
+            )
+        }
+        if (value.status === 1) {
+            return (
+                <View style={style.card}>
+                    <View style={style.containerTipoInfo}>
+                        <Text style={style.tipoInfo}>Status</Text>
+                        <Text style={style.tipoInfo}>Data</Text>
+                        <Text style={style.tipoInfo}>Horario</Text>
+                    </View>
+                    <View style={style.containerInfo}>
+                        <Image source={reservaReprovada} style={style.infoImage}></Image>
+                        <Text style={style.infoText}>{value.data}</Text>
+                        <Text style={style.infoText}>{value.rangeHora}</Text>
+                    </View>
+                </View>
+            )
+        }
+    })
+
+
     return (
         <View style={style.containerCards}>
-            <View style={style.card}>
-                <View style={style.containerTipoInfo}>
-                    <Text style={style.tipoInfo}>Status</Text>
-                    <Text style={style.tipoInfo}>Data</Text>
-                    <Text style={style.tipoInfo}>Horario</Text>
-                </View>
-                <View style={style.containerInfo}>
-                    <Image source={semReserva} style={style.infoImage}></Image>
-                    <Text style={style.infoText}>-</Text>
-                    <Text style={style.infoText}>-</Text>
-                </View>
-            </View>
+            {renderizarReservas}
         </View>
     )
 }
@@ -25,7 +69,6 @@ const style = StyleSheet.create({
     containerCards: {
         position: 'relative',
         top: 100,
-        flexDirection: 'row',
         width: 350,
         height: 500
     },
@@ -33,12 +76,14 @@ const style = StyleSheet.create({
         backgroundColor: '#253E60',
         width: '100%',
         height: 60,
-        borderRadius: 8
+        borderRadius: 8,
+        marginTop: 5
     },
     containerTipoInfo: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 5
+        marginTop: 5,
+        marginRight: 40
     },
     tipoInfo: {
         fontSize: 15,
@@ -56,9 +101,8 @@ const style = StyleSheet.create({
         height: 8
     },
     infoText: {
-        fontSize: 15,
-        lineHeight: 20,
+        fontSize: 0,
+        lineHeight: 30,
         color: '#FFFFFF',
     }
-
 })
