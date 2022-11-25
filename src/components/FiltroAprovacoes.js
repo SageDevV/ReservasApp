@@ -12,7 +12,7 @@ export default (props) => {
         if(filter === false){
             setFilter(true)
             getReservas(props.bloco).then(response => {
-                props.setReservas(response.data)
+                props.setReservasPorBloco(response.data)
             }).catch(erro => {
                 console.log(erro)
             })

@@ -6,7 +6,7 @@ import reservaReprovada from '../../assets/reservaReprovada.png';
 
 export default (props) => {
 
-    const renderizarReservas = props.reservas.map((value, index) => {
+    const renderizarReservasPorBloco = props.reservasPorBloco.map((value, index) => {
         if (value.status === null) {
             return (
                 <View style={style.card}>
@@ -60,7 +60,7 @@ export default (props) => {
 
     return (
         <View style={style.containerCards}>
-            {renderizarReservas}
+            {renderizarReservasPorBloco}
         </View>
     )
 }

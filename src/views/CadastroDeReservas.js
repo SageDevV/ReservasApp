@@ -8,13 +8,13 @@ import Cards from '../components/Cards'
 export default _ => {
 
     const [bloco, setbloco] = useState('')
-    const [reservas, setReservas] = useState([])
+    const [reservasPorBloco, setReservasPorBloco] = useState([])
     
     return (
         <View style={style.containerReservas}>
             <NavbarAprovacoes />
-            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReservas={setReservas}  />
-            <Cards reservas={reservas} />
+            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReservasPorBloco={setReservasPorBloco}  />
+            <Cards reservasPorBloco={reservasPorBloco} />
         </View>
     )
 }
