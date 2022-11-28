@@ -57,6 +57,23 @@ export default (props) => {
         }
     })
 
+    const renderizarSalasDisponiveisPorBloco = props.salaDisponivelPorBloco.map((value, index) => {
+        return (
+            <View style={style.card}>
+                <View style={style.containerTipoInfo}>
+                    <Text style={style.tipoInfo}>Status</Text>
+                    <Text style={style.tipoInfo}>Data</Text>
+                    <Text style={style.tipoInfo}>Horario</Text>
+                </View>
+                <View style={style.containerInfo}>
+                    <Image source={semReserva} style={style.infoImage}></Image>
+                    <Text style={style.infoText}>-</Text>
+                    <Text style={style.infoText}>-</Text>
+                </View>
+            </View>
+        )
+    })
+
     const renderizarReservasDefault = props.reserva.map((value, index) => {
         if (value.status === null) {
             return (
@@ -110,7 +127,7 @@ export default (props) => {
 
     return (
         <View style={style.containerCards}>
-            {renderizarReservasDefault}
+            {renderizarSalasDisponiveisPorBloco}
         </View>
     )
 }

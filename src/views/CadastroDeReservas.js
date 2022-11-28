@@ -12,10 +12,10 @@ export default _ => {
     const [bloco, setbloco] = useState('')
     const [reservasPorBloco, setReservasPorBloco] = useState([])
     const [reserva, setReserva] = useState([])
+    const [salaDisponivelPorBloco, setsalaDisponivelPorBloco] = useState([])
 
     useEffect(_ => {
         getReservas().then(response => {
-            console.log(response.data)
             setReserva(response.data);
         }).catch(erro => {
             Alert.alert(`Houve um erro na requisição. ${erro}`)
@@ -25,8 +25,8 @@ export default _ => {
     return (
         <View style={style.containerReservas}>
             <NavbarAprovacoes />
-            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReservasPorBloco={setReservasPorBloco} />
-            <Cards reservasPorBloco={reservasPorBloco} reserva={reserva} />
+            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReservasPorBloco={setReservasPorBloco} setsalaDisponivelPorBloco={setsalaDisponivelPorBloco} />
+            <Cards reservasPorBloco={reservasPorBloco} reserva={reserva} salaDisponivelPorBloco={salaDisponivelPorBloco} />
         </View>
     )
 }
