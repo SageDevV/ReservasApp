@@ -1,23 +1,47 @@
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
 import { useState } from 'react'
 
-import { getReservasPorBloco, getSalas } from '../services/reservas';
+import { getReservasPorBloco, getSalasDisponiveisPorBloco } from '../services/reservas';
 
 import lupa from '../../assets/lupa.png'
 
 export default (props) => {
     const [filter, setFilter] = useState(false)
+    const [statusReserva, setStatusReserva] = useState()
+    const [statusSala, setStatusSala] = useState()
 
     const requestReservas = _ => {
-        if(filter === false){
+        
+        if (filter === false) {
             setFilter(true)
+            if (props.bloco === 'C') {
+                Alert.alert('Insira um bloco por favor.')
+                return
+            }
+            if (statusSala === 0) {
+                getSalasDisponiveisPorBloco(props.bloco).then(response => {
+                    console.log(response.data)
+                    props.setsalaDisponivelPorBloco(response.data)
+                }).catch(erro => {
+                    Alert.alert(`Houve um problema com a requisição ${erro}`)
+                })
+                return
+            }
+            if (statusReserva === 0) {
+                //Request reservas aprovadas
+                return
+            }
+            if (statusReserva === 1) {
+                //Request reservas reprovadas
+                return
+            }
             getReservasPorBloco(props.bloco).then(response => {
                 props.setReservasPorBloco(response.data)
             }).catch(erro => {
                 console.log(erro)
             })
         }
-        else{
+        else {
             setFilter(false)
         }
     }
@@ -32,16 +56,23 @@ export default (props) => {
                 </TouchableOpacity>
                 <TextInput style={style.textInput}
                     value={props.bloco}
-                    onChangeText={props.setbloco}/>
+                    onChangeText={props.setbloco} />
             </View>
             <View style={style.containerButtonsFiltro}>
-                <TouchableOpacity style={style.buttonFiltro}>
+                <TouchableOpacity style={style.buttonFiltro}
+                    onPress={_ => { 
+                        setStatusReserva(0) }}>
                     <Text style={style.textButton}>Aprovados</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={style.buttonFiltro}>
+                <TouchableOpacity style={style.buttonFiltro}
+                    onPress={_ => {
+                        setStatusReserva(1)
+                    }}>
                     <Text style={style.textButton}>Reprovados</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={style.buttonFiltro}>
+                <TouchableOpacity style={style.buttonFiltro}
+                    onPress={_ => {
+                        setStatusSala(0)}}>
                     <Text style={style.textButton}>Disponiveis</Text>
                 </TouchableOpacity>
             </View>
