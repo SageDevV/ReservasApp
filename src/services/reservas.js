@@ -17,3 +17,12 @@ export async function getReservas() {
     return await axios.get(`${baseURL}/reservas`)
 }
 
+export async function getReservasAprovadasPorBloco(bloco) {
+    
+    return await axios.get(`${baseURL}/reservas-aprovadas?bloco=${bloco}`)
+}
+
+export async function getReservasReprovadasPorBloco(bloco) {
+    
+    return await axios.get(`${baseURL}/reservas-reprovadas?bloco=${bloco}`)
+}

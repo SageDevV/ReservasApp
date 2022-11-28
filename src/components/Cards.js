@@ -127,7 +127,7 @@ export default (props) => {
 
     return (
         <View style={style.containerCards}>
-            {renderizarSalasDisponiveisPorBloco}
+            {renderizarReservasPorBloco}
         </View>
     )
 }

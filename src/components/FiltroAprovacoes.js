@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
 import { useState } from 'react'
 
-import { getReservasPorBloco, getSalasDisponiveisPorBloco } from '../services/reservas';
+import { getReservasPorBloco, getSalasDisponiveisPorBloco, getReservasAprovadasPorBloco, getReservasReprovadasPorBloco } from '../services/reservas';
 
 import lupa from '../../assets/lupa.png'
 
@@ -14,11 +14,12 @@ export default (props) => {
         
         if (filter === false) {
             setFilter(true)
-            if (props.bloco === 'C') {
+            if (props.bloco === '') {
                 Alert.alert('Insira um bloco por favor.')
                 return
             }
             if (statusSala === 0) {
+                console.log('teste')
                 getSalasDisponiveisPorBloco(props.bloco).then(response => {
                     console.log(response.data)
                     props.setsalaDisponivelPorBloco(response.data)
@@ -28,11 +29,21 @@ export default (props) => {
                 return
             }
             if (statusReserva === 0) {
-                //Request reservas aprovadas
+                getReservasAprovadasPorBloco(props.bloco).then(response => {
+                    console.log(response.data)
+                    props.setReservasPorBloco(response.data)
+                }).catch(erro => {
+                    Alert.alert(`Houve um problema com a requisição ${erro}`)
+                })
                 return
             }
             if (statusReserva === 1) {
-                //Request reservas reprovadas
+                getReservasReprovadasPorBloco(props.bloco).then(response => {
+                    console.log(response.data)
+                    props.setReservasPorBloco(response.data)
+                }).catch(erro => {
+                    Alert.alert(`Houve um problema com a requisição ${erro}`)
+                })
                 return
             }
             getReservasPorBloco(props.bloco).then(response => {
