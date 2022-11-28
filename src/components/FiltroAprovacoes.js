@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
 import { useState } from 'react'
 
-import { getReservas, getSalas } from '../services/reservas';
+import { getReservasPorBloco, getSalas } from '../services/reservas';
 
 import lupa from '../../assets/lupa.png'
 
@@ -11,7 +11,7 @@ export default (props) => {
     const requestReservas = _ => {
         if(filter === false){
             setFilter(true)
-            getReservas(props.bloco).then(response => {
+            getReservasPorBloco(props.bloco).then(response => {
                 props.setReservasPorBloco(response.data)
             }).catch(erro => {
                 console.log(erro)
