@@ -48,7 +48,10 @@ export default _ => {
                         <TextInput style={style.modalInput}></TextInput>
                     </View>
                     <View>
-                        <TouchableOpacity style={style.modalButton}>
+                        <TouchableOpacity style={style.modalButton}
+                        onPress={_ => {
+                            setVisibleModal(false)
+                        }}>
                             <Text style={style.modalText}>Reservar</Text>
                         </TouchableOpacity>
                     </View>
@@ -60,6 +63,8 @@ export default _ => {
 
 const style = StyleSheet.create({
     containerReservas: {
+        height: '100%',
+        backgroundColor: '#CED8E9',
         alignItems: 'center'
     },
     modalView: {
@@ -95,7 +100,8 @@ const style = StyleSheet.create({
         backgroundColor: '#253E60',
         width: '100%',
         height: 30,
-        borderRadius: 8
+        borderRadius: 8,
+        color: 'white'
     },
     modalButton:{
         position: 'absolute',
