@@ -7,38 +7,6 @@ import reservaReprovada from '../../assets/reservaReprovada.png';
 export default (props) => {
 
     const renderizarReservasDefault = props.reserva.map((value, index) => {
-        if (value.status === 3) {
-            return (
-                <View style={style.card}>
-                    <View style={style.containerTipoInfo}>
-                        <Text style={style.tipoInfo}>Status</Text>
-                        <Text style={style.tipoInfo}>Data</Text>
-                        <Text style={style.tipoInfo}>Horario</Text>
-                    </View>
-                    <View style={style.containerInfo}>
-                        <Image source={semReserva} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>-</Text>
-                        <Text style={style.infoText}>-</Text>
-                    </View>
-                </View>
-            )
-        }
-        if (value.status === null) {
-            return (
-                <View style={style.card}>
-                    <View style={style.containerTipoInfo}>
-                        <Text style={style.tipoInfo}>Status</Text>
-                        <Text style={style.tipoInfo}>Data</Text>
-                        <Text style={style.tipoInfo}>Horario</Text>
-                    </View>
-                    <View style={style.containerInfo}>
-                        <Image source={semReserva} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>-</Text>
-                        <Text style={style.infoText}>-</Text>
-                    </View>
-                </View>
-            )
-        }
         if (value.status === 0) {
             return (
                 <View style={style.card}>
@@ -67,6 +35,22 @@ export default (props) => {
                         <Image source={reservaReprovada} style={style.infoImage}></Image>
                         <Text style={style.infoText}>{value.data}</Text>
                         <Text style={style.infoText}>{value.rangeHora}</Text>
+                    </View>
+                </View>
+            )
+        }
+        if (value.status === 3) {
+            return (
+                <View style={style.card}>
+                    <View style={style.containerTipoInfo}>
+                        <Text style={style.tipoInfo}>Status</Text>
+                        <Text style={style.tipoInfo}>Sala</Text>
+                        <Text style={style.tipoInfo}>Descrição</Text>
+                    </View>
+                    <View style={style.containerInfo}>
+                        <Image source={semReserva} style={style.infoImage}></Image>
+                        <Text style={style.infoText}>{value.id}</Text>
+                        <Text style={style.infoText}>{value.descricao}</Text>
                     </View>
                 </View>
             )
