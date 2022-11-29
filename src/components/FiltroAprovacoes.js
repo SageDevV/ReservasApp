@@ -9,9 +9,12 @@ export default (props) => {
     const [filter, setFilter] = useState(false)
     const [statusReserva, setStatusReserva] = useState()
     const [statusSala, setStatusSala] = useState()
+    const [buttonAcessDisponiveis, setButtonAcessDisponiveis] = useState(false)
+    const [buttonAcessAprovados, setButtonAcessAprovados] = useState(false)
+    const [buttonAcessReprovados, setButtonAcessReprovados] = useState(false)
 
     const requestReservas = _ => {
-        
+
         if (filter === false) {
             setFilter(true)
             if (props.bloco === '') {
@@ -19,10 +22,9 @@ export default (props) => {
                 return
             }
             if (statusSala === 0) {
-                console.log('teste')
                 getSalasDisponiveisPorBloco(props.bloco).then(response => {
                     console.log(response.data)
-                    props.setsalaDisponivelPorBloco(response.data)
+                    props.setReserva(response.data)
                 }).catch(erro => {
                     Alert.alert(`Houve um problema com a requisição ${erro}`)
                 })
@@ -31,7 +33,7 @@ export default (props) => {
             if (statusReserva === 0) {
                 getReservasAprovadasPorBloco(props.bloco).then(response => {
                     console.log(response.data)
-                    props.setReservasPorBloco(response.data)
+                    props.setReserva(response.data)
                 }).catch(erro => {
                     Alert.alert(`Houve um problema com a requisição ${erro}`)
                 })
@@ -40,14 +42,14 @@ export default (props) => {
             if (statusReserva === 1) {
                 getReservasReprovadasPorBloco(props.bloco).then(response => {
                     console.log(response.data)
-                    props.setReservasPorBloco(response.data)
+                    props.setReserva(response.data)
                 }).catch(erro => {
                     Alert.alert(`Houve um problema com a requisição ${erro}`)
                 })
                 return
             }
             getReservasPorBloco(props.bloco).then(response => {
-                props.setReservasPorBloco(response.data)
+                props.setReserva(response.data)
             }).catch(erro => {
                 console.log(erro)
             })
@@ -71,24 +73,43 @@ export default (props) => {
             </View>
             <View style={style.containerButtonsFiltro}>
                 <TouchableOpacity style={style.buttonFiltro}
-                    onPress={_ => { 
-                        setStatusReserva(0) }}>
+                    disabled={buttonAcessAprovados}
+                    onPress={_ => {
+                        setStatusReserva(0)
+                        setButtonAcessReprovados(true)
+                        setButtonAcessDisponiveis(true)
+                    }}>
                     <Text style={style.textButton}>Aprovados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={style.buttonFiltro}
+                    disabled={buttonAcessReprovados}
                     onPress={_ => {
                         setStatusReserva(1)
+                        setButtonAcessAprovados(true)
+                        setButtonAcessDisponiveis(true)
                     }}>
                     <Text style={style.textButton}>Reprovados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={style.buttonFiltro}
+                    disabled={buttonAcessDisponiveis}
                     onPress={_ => {
-                        setStatusSala(0)}}>
+                        setStatusSala(0)
+                        setButtonAcessAprovados(true)
+                        setButtonAcessReprovados(true)
+                    }}>
                     <Text style={style.textButton}>Disponiveis</Text>
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity style={style.buttonLimpar}>
+                <TouchableOpacity style={style.buttonLimpar}
+                    onPress={_ => {
+                        setButtonAcessAprovados(false)
+                        setButtonAcessReprovados(false)
+                        setButtonAcessDisponiveis(false)
+                        setStatusReserva(10)
+                        setStatusSala(10)
+                    }}>
+
                     <Text style={style.textButton}>Limpar filtro</Text>
                 </TouchableOpacity>
             </View>

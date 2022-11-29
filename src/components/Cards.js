@@ -6,8 +6,8 @@ import reservaReprovada from '../../assets/reservaReprovada.png';
 
 export default (props) => {
 
-    const renderizarReservasPorBloco = props.reservasPorBloco.map((value, index) => {
-        if (value.status === null) {
+    const renderizarReservasDefault = props.reserva.map((value, index) => {
+        if (value.status === 3) {
             return (
                 <View style={style.card}>
                     <View style={style.containerTipoInfo}>
@@ -17,64 +17,12 @@ export default (props) => {
                     </View>
                     <View style={style.containerInfo}>
                         <Image source={semReserva} style={style.infoImage}></Image>
-                        <Text style={style.infoText}></Text>
+                        <Text style={style.infoText}>-</Text>
                         <Text style={style.infoText}>-</Text>
                     </View>
                 </View>
             )
         }
-        if (value.status === 0) {
-            return (
-                <View style={style.card}>
-                    <View style={style.containerTipoInfo}>
-                        <Text style={style.tipoInfo}>Status</Text>
-                        <Text style={style.tipoInfo}>Data</Text>
-                        <Text style={style.tipoInfo}>Horario</Text>
-                    </View>
-                    <View style={style.containerInfo}>
-                        <Image source={reservado} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>{value.data}</Text>
-                        <Text style={style.infoText}>{value.rangeHora}</Text>
-                    </View>
-                </View>
-            )
-        }
-        if (value.status === 1) {
-            return (
-                <View style={style.card}>
-                    <View style={style.containerTipoInfo}>
-                        <Text style={style.tipoInfo}>Status</Text>
-                        <Text style={style.tipoInfo}>Data</Text>
-                        <Text style={style.tipoInfo}>Horario</Text>
-                    </View>
-                    <View style={style.containerInfo}>
-                        <Image source={reservaReprovada} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>{value.data}</Text>
-                        <Text style={style.infoText}>{value.rangeHora}</Text>
-                    </View>
-                </View>
-            )
-        }
-    })
-
-    const renderizarSalasDisponiveisPorBloco = props.salaDisponivelPorBloco.map((value, index) => {
-        return (
-            <View style={style.card}>
-                <View style={style.containerTipoInfo}>
-                    <Text style={style.tipoInfo}>Status</Text>
-                    <Text style={style.tipoInfo}>Data</Text>
-                    <Text style={style.tipoInfo}>Horario</Text>
-                </View>
-                <View style={style.containerInfo}>
-                    <Image source={semReserva} style={style.infoImage}></Image>
-                    <Text style={style.infoText}>-</Text>
-                    <Text style={style.infoText}>-</Text>
-                </View>
-            </View>
-        )
-    })
-
-    const renderizarReservasDefault = props.reserva.map((value, index) => {
         if (value.status === null) {
             return (
                 <View style={style.card}>
@@ -127,7 +75,7 @@ export default (props) => {
 
     return (
         <View style={style.containerCards}>
-            {renderizarReservasPorBloco}
+            {renderizarReservasDefault}
         </View>
     )
 }
