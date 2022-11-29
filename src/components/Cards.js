@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet, Image, Alert } from 'react-native'
+import { View, Text, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
+import { useState } from 'react';
+
 
 import semReserva from '../../assets/semReserva.png';
 import reservado from '../../assets/reservado.png';
 import reservaReprovada from '../../assets/reservaReprovada.png';
 
-export default (props) => {
 
+export default (props) => {
     const renderizarReservasDefault = props.reserva.map((value, index) => {
         if (value.status === 0) {
             return (
@@ -41,7 +43,10 @@ export default (props) => {
         }
         if (value.status === 3) {
             return (
-                <View style={style.card}>
+                <TouchableOpacity style={style.card}
+                    onPress={_ => {
+                        props.setVisibleModal(true)
+                    }}>
                     <View style={style.containerTipoInfo}>
                         <Text style={style.tipoInfo}>Status</Text>
                         <Text style={style.tipoInfo}>Sala</Text>
@@ -52,7 +57,7 @@ export default (props) => {
                         <Text style={style.infoText}>{value.id}</Text>
                         <Text style={style.infoText}>{value.descricao}</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
             )
         }
     })
@@ -103,5 +108,5 @@ const style = StyleSheet.create({
         fontSize: 0,
         lineHeight: 30,
         color: '#FFFFFF',
-    }
+    },
 })

@@ -12,6 +12,7 @@ export default (props) => {
     const [buttonAcessDisponiveis, setButtonAcessDisponiveis] = useState(false)
     const [buttonAcessAprovados, setButtonAcessAprovados] = useState(false)
     const [buttonAcessReprovados, setButtonAcessReprovados] = useState(false)
+    
 
     const requestReservas = _ => {
 
@@ -68,6 +69,7 @@ export default (props) => {
                     <Image source={lupa} style={style.lupaInput} />
                 </TouchableOpacity>
                 <TextInput style={style.textInput}
+                    ref={props.mainInput}
                     value={props.bloco}
                     onChangeText={props.setbloco} />
             </View>
