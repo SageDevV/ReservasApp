@@ -7,7 +7,7 @@ import FiltroAprovacoes from '../components/FiltroAprovacoes'
 import Cards from '../components/Cards'
 import ActionModal from '../components/ActionModal'
 
-import { getReservas } from '../services/reservas'
+import { getSalasDisponiveisPorBloco } from '../services/reservas'
 
 export default _ => {
 
@@ -24,7 +24,7 @@ export default _ => {
 
 
     useEffect(_ => {
-        getReservas().then(response => {
+        getSalasDisponiveisPorBloco().then(response => {
             setReserva(response.data);
         }).catch(erro => {
             Alert.alert(`Houve um erro na requisição. ${erro}`)
@@ -35,7 +35,7 @@ export default _ => {
     return (
         <View style={style.containerReservas}>
             <NavbarAprovacoes />
-            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReserva={setReserva} mainInput={mainInput} />
+            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReserva={setReserva} mainInput={mainInput} idSolicitante={idSolicitante} />
             <Cards reserva={reserva} setVisibleModal={setVisibleModal} setIdSala={setIdSala} />
             <ActionModal setVisibleModal={setVisibleModal} visibleModal={visibleModal} idSala={idSala} idSolicitante={idSolicitante} />
         </View>

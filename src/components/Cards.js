@@ -1,14 +1,38 @@
 import { View, Text, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
-import { useState } from 'react';
 
 
 import semReserva from '../../assets/semReserva.png';
 import reservado from '../../assets/reservado.png';
 import reservaReprovada from '../../assets/reservaReprovada.png';
+import aguardandoAprovacao from '../../assets/aguardandoAprovacao.png';
 
 
 export default (props) => {
     const renderizarReservasDefault = props.reserva.map((value, index) => {
+        //Reserva aguardando aprovação
+        if (value.status === 4) {
+            return (
+                <View style={style.card}>
+                    <View style={style.containerTipoInfo}>
+                        <Text style={style.tipoInfo}>Status</Text>
+                        <Text style={style.tipoInfo}>Data</Text>
+                        <Text style={style.tipoInfo}>Horario</Text>
+                    </View>
+                    <View style={style.containerInfo}>
+                        <View style={style.itemImage}>
+                            <Image source={aguardandoAprovacao} style={style.infoImage}></Image>
+                        </View>
+                        <View style={style.itemData}>
+                            <Text style={style.infoText}>{value.data}</Text>
+                        </View>
+                        <View style={style.itemHorario}>
+                            <Text style={style.infoText}>{value.rangeHora}</Text>
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+        //Reserva aprovada 
         if (value.status === 0) {
             return (
                 <View style={style.card}>
@@ -18,13 +42,20 @@ export default (props) => {
                         <Text style={style.tipoInfo}>Horario</Text>
                     </View>
                     <View style={style.containerInfo}>
-                        <Image source={reservado} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>{value.data}</Text>
-                        <Text style={style.infoText}>{value.rangeHora}</Text>
+                        <View style={style.itemImage}>
+                            <Image source={reservado} style={style.infoImage}></Image>
+                        </View>
+                        <View style={style.itemData}>
+                            <Text style={style.infoText}>{value.data}</Text>
+                        </View>
+                        <View style={style.itemHorario}>
+                            <Text style={style.infoText}>{value.rangeHora}</Text>
+                        </View>
                     </View>
                 </View>
             )
         }
+        //Reserva reprovada
         if (value.status === 1) {
             return (
                 <View style={style.card}>
@@ -34,13 +65,20 @@ export default (props) => {
                         <Text style={style.tipoInfo}>Horario</Text>
                     </View>
                     <View style={style.containerInfo}>
-                        <Image source={reservaReprovada} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>{value.data}</Text>
-                        <Text style={style.infoText}>{value.rangeHora}</Text>
+                        <View style={style.itemImage}>
+                            <Image source={reservaReprovada} style={style.infoImage}></Image>
+                        </View>
+                        <View style={style.itemData}>
+                            <Text style={style.infoText}>{value.data}</Text>
+                        </View>
+                        <View style={style.itemHorario}>
+                            <Text style={style.infoText}>{value.rangeHora}</Text>
+                        </View>
                     </View>
                 </View>
             )
         }
+        //Salas disponiveis
         if (value.status === 3) {
             return (
                 <TouchableOpacity style={style.card}
@@ -55,9 +93,15 @@ export default (props) => {
                         <Text style={style.tipoInfo}>Descrição</Text>
                     </View>
                     <View style={style.containerInfo}>
-                        <Image source={semReserva} style={style.infoImage}></Image>
-                        <Text style={style.infoText}>{value.id}</Text>
-                        <Text style={style.infoText}>{value.descricao}</Text>
+                        <View style={style.itemImageSemReserva}>
+                            <Image source={semReserva} style={style.infoImage}></Image>
+                        </View>
+                        <View style={style.itemSalaSemReserva}>
+                            <Text style={style.infoText}>{value.id}</Text>
+                        </View>
+                        <View style={style.itemDescricaoSemReserva}>
+                            <Text style={style.infoText}>{value.descricao}</Text>
+                        </View>
                     </View>
                 </TouchableOpacity>
             )
@@ -106,9 +150,29 @@ const style = StyleSheet.create({
         width: 8,
         height: 8
     },
+    itemImage: {
+        marginLeft: 25
+    },
+    itemImageSemReserva: {
+        position: 'relative',
+            left: 1
+    },
     infoText: {
-        fontSize: 0,
         lineHeight: 30,
         color: '#FFFFFF',
     },
+    itemSalaSemReserva: {
+        position: 'relative',
+            right: 10
+    },
+    itemData: {
+        marginLeft: 30
+    },
+    itemHorario: {
+        marginRight: 10
+    },
+    itemDescricaoSemReserva: {
+        position: 'relative',
+            right: 38
+    }
 })

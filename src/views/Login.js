@@ -18,24 +18,23 @@ export default _ => {
     }
 
     const onPressSend = () => {
-        const resultado = loginUsuario(email, senha).then(response => {
-            console.log(response)
-            if(response.data.privilegio === 0){
+        loginUsuario(email, senha).then(response => {
+            if (response.data.privilegio === 0) {
                 Alert.alert('Usuário encontrado.')
-                navigation.navigate('CadastroDeReservas', {idSolicitante: response.data.id})
+                navigation.navigate('CadastroDeReservas', { idSolicitante: response.data.id })
             }
-            else if(response.data.privilegio === 1){
+            else if (response.data.privilegio === 1) {
                 Alert.alert('Usuário encontrado.')
                 Alert.alert('Tela de aprovações não construida ainda.')
                 //Navegar para a tela de aprovação
             }
-            else{
+            else {
                 Alert.alert('Usuario não encontrado.')
             }
         }).catch(erro => {
             Alert.alert(`Erro na requisição ${erro}`)
         })
-        
+
     }
     return (
         <>

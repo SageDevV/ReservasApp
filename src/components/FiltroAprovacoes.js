@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
 import { useState } from 'react'
 
-import { getReservasPorBloco, getSalasDisponiveisPorBloco, getReservasAprovadasPorBloco, getReservasReprovadasPorBloco } from '../services/reservas';
+import { getReservasPorBloco, getSalasDisponiveisPorBloco, getReservasAprovadasPorBloco, getReservasReprovadasPorBloco, getReservasCriadasPeloSolicitante } from '../services/reservas';
 
 import lupa from '../../assets/lupa.png'
 
@@ -12,7 +12,8 @@ export default (props) => {
     const [buttonAcessDisponiveis, setButtonAcessDisponiveis] = useState(false)
     const [buttonAcessAprovados, setButtonAcessAprovados] = useState(false)
     const [buttonAcessReprovados, setButtonAcessReprovados] = useState(false)
-    
+    const [buttonAcessReservados, setButtonAcessReservados] = useState(false)
+
 
     const requestReservas = _ => {
 
@@ -49,6 +50,15 @@ export default (props) => {
                 })
                 return
             }
+            if (statusReserva === 4) {
+                getReservasCriadasPeloSolicitante(props.idSolicitante).then(response => {
+                    console.log(response.data)
+                    props.setReserva(response.data)
+                }).catch(erro => {
+                    Alert.alert(`Houve um problema com a requisição ${erro}`)
+                })
+                return
+            }
             getReservasPorBloco(props.bloco).then(response => {
                 props.setReserva(response.data)
             }).catch(erro => {
@@ -75,11 +85,22 @@ export default (props) => {
             </View>
             <View style={style.containerButtonsFiltro}>
                 <TouchableOpacity style={style.buttonFiltro}
+                    disabled={buttonAcessReservados}
+                    onPress={_ => {
+                        setStatusReserva(4)
+                        setButtonAcessReprovados(true)
+                        setButtonAcessDisponiveis(true)
+                        setButtonAcessAprovados(true)
+                    }}>
+                    <Text style={style.textButton}>Reservados</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={style.buttonFiltro}
                     disabled={buttonAcessAprovados}
                     onPress={_ => {
                         setStatusReserva(0)
                         setButtonAcessReprovados(true)
                         setButtonAcessDisponiveis(true)
+                        setButtonAcessReservados(true)
                     }}>
                     <Text style={style.textButton}>Aprovados</Text>
                 </TouchableOpacity>
@@ -89,6 +110,7 @@ export default (props) => {
                         setStatusReserva(1)
                         setButtonAcessAprovados(true)
                         setButtonAcessDisponiveis(true)
+                        setButtonAcessReservados(true)
                     }}>
                     <Text style={style.textButton}>Reprovados</Text>
                 </TouchableOpacity>
@@ -98,6 +120,7 @@ export default (props) => {
                         setStatusSala(0)
                         setButtonAcessAprovados(true)
                         setButtonAcessReprovados(true)
+                        setButtonAcessReservados(true)
                     }}>
                     <Text style={style.textButton}>Disponiveis</Text>
                 </TouchableOpacity>
@@ -108,6 +131,7 @@ export default (props) => {
                         setButtonAcessAprovados(false)
                         setButtonAcessReprovados(false)
                         setButtonAcessDisponiveis(false)
+                        setButtonAcessReservados(false)
                         setStatusReserva(10)
                         setStatusSala(10)
                     }}>
@@ -168,6 +192,7 @@ const style = StyleSheet.create({
         backgroundColor: '#253E60',
         alignItems: 'center',
         justifyContent: 'center',
+        marginHorizontal: 20
     },
     textButton: {
         fontSize: 12,
