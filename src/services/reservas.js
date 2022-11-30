@@ -2,9 +2,9 @@ import axios from 'axios'
 
 const baseURL = `http://192.168.2.105:45455/SalaReservas`
 
-export async function getSalasDisponiveisPorBloco() {
+export async function getSalasDisponiveisPorBloco(bloco) {
 
-    return await axios.get(`${baseURL}/salas-disponiveis`)
+    return await axios.get(`${baseURL}/salas-disponiveis?bloco=${bloco}`)
 }
 
 export async function getReservasPorBloco(bloco) {
@@ -27,7 +27,7 @@ export async function getReservasReprovadasPorBloco(bloco) {
     return await axios.get(`${baseURL}/reservas-reprovadas?bloco=${bloco}`)
 }
 
-export async function getReservasCriadasPeloSolicitante(idSolicitante) {
+export async function getReservasCriadasPeloSolicitante(idSolicitante, bloco = null) {
 
     return await axios.get(`${baseURL}/reservas-criadas-solicitante?idSolicitante=${idSolicitante}`)
 }

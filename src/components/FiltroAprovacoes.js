@@ -19,6 +19,15 @@ export default (props) => {
 
         if (filter === false) {
             setFilter(true)
+            if (statusReserva === 4) {
+                getReservasCriadasPeloSolicitante(props.idSolicitante).then(response => {
+                    console.log(response.data)
+                    props.setReserva(response.data)
+                }).catch(erro => {
+                    Alert.alert(`Houve um problema com a requisição ${erro}`)
+                })
+                return
+            }
             if (props.bloco === '') {
                 Alert.alert('Insira um bloco por favor.')
                 return
@@ -43,15 +52,6 @@ export default (props) => {
             }
             if (statusReserva === 1) {
                 getReservasReprovadasPorBloco(props.bloco).then(response => {
-                    console.log(response.data)
-                    props.setReserva(response.data)
-                }).catch(erro => {
-                    Alert.alert(`Houve um problema com a requisição ${erro}`)
-                })
-                return
-            }
-            if (statusReserva === 4) {
-                getReservasCriadasPeloSolicitante(props.idSolicitante).then(response => {
                     console.log(response.data)
                     props.setReserva(response.data)
                 }).catch(erro => {

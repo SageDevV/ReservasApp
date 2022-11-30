@@ -7,7 +7,7 @@ import FiltroAprovacoes from '../components/FiltroAprovacoes'
 import Cards from '../components/Cards'
 import ActionModal from '../components/ActionModal'
 
-import { getSalasDisponiveisPorBloco } from '../services/reservas'
+import { getReservasCriadasPeloSolicitante } from '../services/reservas'
 
 export default _ => {
 
@@ -24,7 +24,7 @@ export default _ => {
 
 
     useEffect(_ => {
-        getSalasDisponiveisPorBloco().then(response => {
+        getReservasCriadasPeloSolicitante(idSolicitante).then(response => {
             setReserva(response.data);
         }).catch(erro => {
             Alert.alert(`Houve um erro na requisição. ${erro}`)
