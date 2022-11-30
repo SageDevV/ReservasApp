@@ -12,21 +12,17 @@ export default _ => {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [privilegios, setPrivilegio] = useState(0)
+    const [privilegiosStyle, setPrivilegiosStyle] = useState('#253E60')
 
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const onPressPrivilegio = _ => {
         if (privilegios == 0) {
+            setPrivilegiosStyle('#7B9CCC')
             return setPrivilegio(1)
         }
         setPrivilegio(0)
-    }
-
-    function setStylePrivilegios() {
-        if (privilegios === 1) {
-            return style.privilegioButtonAtivado
-        }
-        return style.privilegioButton
+        setPrivilegiosStyle('#253E60')
     }
 
     const onPressSend = () => {
@@ -52,6 +48,9 @@ export default _ => {
     const onPressNavigateTo = () => {
         navigation.navigate('Login')
     }
+
+    const style = styleCreator(privilegiosStyle)
+    
     return (
         <>
             <View style={style.container}>
@@ -87,7 +86,7 @@ export default _ => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={setStylePrivilegios()}
+                <TouchableOpacity style={style.privilegioButton}
                     onPress={onPressPrivilegio}>
                     <Text style={style.privilegioButtonText}>Administrador</Text>
                 </TouchableOpacity>
@@ -108,7 +107,7 @@ export default _ => {
     )
 }
 
-var style = StyleSheet.create({
+const styleCreator = (privilegiosColor) => StyleSheet.create({
     container: {
         backgroundColor: '#CED8E9',
         flex: 1,
@@ -183,14 +182,7 @@ var style = StyleSheet.create({
         color: '#FFFFFF'
     },
     privilegioButton: {
-        backgroundColor: '#253E60',
-        borderRadius: 8,
-        padding: 5,
-        marginTop: 10,
-        alignSelf: 'center'
-    },
-    privilegioButtonAtivado: {
-        backgroundColor: '#7B9CCC',
+        backgroundColor: privilegiosColor,
         borderRadius: 8,
         padding: 5,
         marginTop: 10,

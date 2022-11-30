@@ -22,7 +22,7 @@ export default _ => {
             console.log(response)
             if(response.data.privilegio === 0){
                 Alert.alert('Usuário encontrado.')
-                navigation.navigate('CadastroReservas')
+                navigation.navigate('CadastroDeReservas', {idSolicitante: response.data.id})
             }
             else if(response.data.privilegio === 1){
                 Alert.alert('Usuário encontrado.')

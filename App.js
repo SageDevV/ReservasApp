@@ -14,16 +14,15 @@ export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
-      {/* <NavigationContainer>
+      <NavigationContainer>
         <Stack.Navigator
           initialRouteName='Home'
           screenOptions={{ headerShown: false }}>
           <Stack.Screen name='Home' component={Cadastro} />
           <Stack.Screen name='Login' component={Login} /> 
-          <Stack.Screen name='CadastroReservas' component={CadastroDeReservas} />
+          <Stack.Screen name='CadastroDeReservas' component={CadastroDeReservas} />
         </Stack.Navigator>
-      </NavigationContainer> */}
-      <CadastroDeReservas/>
+      </NavigationContainer>
     </SafeAreaView>
   );
 }

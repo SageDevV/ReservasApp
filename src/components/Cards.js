@@ -46,6 +46,8 @@ export default (props) => {
                 <TouchableOpacity style={style.card}
                     onPress={_ => {
                         props.setVisibleModal(true)
+                        props.setIdSala(value.id)
+                        console.log(value)
                     }}>
                     <View style={style.containerTipoInfo}>
                         <Text style={style.tipoInfo}>Status</Text>
