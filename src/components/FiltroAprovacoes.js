@@ -42,7 +42,7 @@ export default (props) => {
                 return
             }
             if (statusReserva === 0) {
-                getReservasAprovadasPorBloco(props.bloco).then(response => {
+                getReservasAprovadasPorBloco(props.bloco, props.idSolicitante).then(response => {
                     console.log(response.data)
                     props.setReserva(response.data)
                 }).catch(erro => {
@@ -51,7 +51,7 @@ export default (props) => {
                 return
             }
             if (statusReserva === 1) {
-                getReservasReprovadasPorBloco(props.bloco).then(response => {
+                getReservasReprovadasPorBloco(props.bloco, props.idSolicitante).then(response => {
                     console.log(response.data)
                     props.setReserva(response.data)
                 }).catch(erro => {

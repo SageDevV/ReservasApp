@@ -17,14 +17,14 @@ export async function getReservas() {
     return await axios.get(`${baseURL}/reservas`)
 }
 
-export async function getReservasAprovadasPorBloco(bloco) {
+export async function getReservasAprovadasPorBloco(bloco, idSolicitante) {
 
-    return await axios.get(`${baseURL}/reservas-aprovadas?bloco=${bloco}`)
+    return await axios.get(`${baseURL}/reservas-aprovadas?bloco=${bloco}&idSolicitante=${idSolicitante}`)
 }
 
-export async function getReservasReprovadasPorBloco(bloco) {
+export async function getReservasReprovadasPorBloco(bloco, idSolicitante) {
 
-    return await axios.get(`${baseURL}/reservas-reprovadas?bloco=${bloco}`)
+    return await axios.get(`${baseURL}/reservas-reprovadas?bloco=${bloco}&idSolicitante=${idSolicitante}`)
 }
 
 export async function getReservasCriadasPeloSolicitante(idSolicitante, bloco) {
@@ -34,8 +34,6 @@ export async function getReservasCriadasPeloSolicitante(idSolicitante, bloco) {
     return await axios.get(`${baseURL}/reservas-criadas-solicitante?idSolicitante=${idSolicitante}&bloco=${bloco}`)
 }
 
-
-
 export async function createReservas(idSala, idSolicitante, rangeReserva) {
 
     const data = {
@@ -44,4 +42,9 @@ export async function createReservas(idSala, idSolicitante, rangeReserva) {
         dataReserva: rangeReserva
     }
     await axios.post(`${baseURL}/reserva`, data)
+}
+
+export async function desfazerReserva(idSala, idSolicitante){
+    
+    await axios.delete(`${baseURL}/reserva?idSala=${idSala}&idSolicitante=${idSolicitante}`)
 }

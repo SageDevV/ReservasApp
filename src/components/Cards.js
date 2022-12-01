@@ -12,7 +12,12 @@ export default (props) => {
         //Reserva aguardando aprovação
         if (value.status === 4) {
             return (
-                <View style={style.card}>
+                <TouchableOpacity style={style.card}
+                    onPress={_ => {
+                        props.setVisibleModal(true)
+                        props.setModalType('Desfazer reserva')
+                        props.setIdSala(value.idSala)
+                    }}>
                     <View style={style.containerTipoInfo}>
                         <Text style={style.tipoInfo}>Status</Text>
                         <Text style={style.tipoInfo}>Data</Text>
@@ -29,7 +34,7 @@ export default (props) => {
                             <Text style={style.infoText}>{value.rangeHora}</Text>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             )
         }
         //Reserva aprovada 
@@ -84,8 +89,8 @@ export default (props) => {
                 <TouchableOpacity style={style.card}
                     onPress={_ => {
                         props.setVisibleModal(true)
+                        props.setModalType('Criar reserva')
                         props.setIdSala(value.id)
-                        console.log(value)
                     }}>
                     <View style={style.containerTipoInfo}>
                         <Text style={style.tipoInfo}>Status</Text>
