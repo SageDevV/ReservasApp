@@ -1,14 +1,28 @@
-import {useState} from 'react'
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 
 import { createReservas } from '../services/reservas'
 
 
 export default ({ setVisibleModal, idSala, idSolicitante }) => {
 
-    const [dataReserva, setDataReserva] = useState();
-    const [horaInicioReserva, setHoraInicioReserva] = useState();
-    const [horaFimReserva, setHoraFimReserva] = useState();
+    const [dataReserva, setDataReserva] = useState('');
+    const [horaInicioReserva, setHoraInicioReserva] = useState('');
+    const [horaFimReserva, setHoraFimReserva] = useState('');
+
+    const verificarCamposPreenchidos = _ => {
+        if (dataReserva === '' || horaInicioReserva === '' || horaFimReserva === '') {
+            Alert.alert('É necessário preencher todos os campos')
+            return
+        }
+        let rangeReserva = `${dataReserva} = ${horaInicioReserva} - ${horaFimReserva}`
+        createReservas(idSala, idSolicitante, rangeReserva).then(response => {
+            console.log(response)
+        }).catch(erro => {
+            console.log(erro)
+        })
+        setVisibleModal(false)
+    }
 
     return (
         <>
@@ -30,15 +44,7 @@ export default ({ setVisibleModal, idSala, idSolicitante }) => {
             </View>
             <View>
                 <TouchableOpacity style={style.modalButton}
-                    onPress={_ => {
-                        let rangeReserva = `${dataReserva} = ${horaInicioReserva} - ${horaFimReserva}`
-                        createReservas(idSala, idSolicitante, rangeReserva).then(response => {
-                            console.log(response)
-                        }).catch(erro => {
-                            console.log(erro)
-                        })
-                        setVisibleModal(false)
-                    }}>
+                    onPress={verificarCamposPreenchidos}>
                     <Text style={style.modalButtonText}>Reservar</Text>
                 </TouchableOpacity>
             </View>
