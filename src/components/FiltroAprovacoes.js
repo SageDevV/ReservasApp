@@ -20,7 +20,7 @@ export default (props) => {
         if (filter === false) {
             setFilter(true)
             if (statusReserva === 4) {
-                getReservasCriadasPeloSolicitante(props.idSolicitante).then(response => {
+                getReservasCriadasPeloSolicitante(props.idSolicitante, props.bloco).then(response => {
                     console.log(response.data)
                     props.setReserva(response.data)
                 }).catch(erro => {

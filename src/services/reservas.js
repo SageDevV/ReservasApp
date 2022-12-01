@@ -27,10 +27,14 @@ export async function getReservasReprovadasPorBloco(bloco) {
     return await axios.get(`${baseURL}/reservas-reprovadas?bloco=${bloco}`)
 }
 
-export async function getReservasCriadasPeloSolicitante(idSolicitante, bloco = null) {
-
-    return await axios.get(`${baseURL}/reservas-criadas-solicitante?idSolicitante=${idSolicitante}`)
+export async function getReservasCriadasPeloSolicitante(idSolicitante, bloco) {
+    if (bloco === undefined) {
+        return await axios.get(`${baseURL}/reservas-criadas-solicitante?idSolicitante=${idSolicitante}`)
+    }
+    return await axios.get(`${baseURL}/reservas-criadas-solicitante?idSolicitante=${idSolicitante}&bloco=${bloco}`)
 }
+
+
 
 export async function createReservas(idSala, idSolicitante, rangeReserva) {
 
