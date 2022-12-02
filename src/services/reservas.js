@@ -34,6 +34,10 @@ export async function getReservasCriadasPeloSolicitante(idSolicitante, bloco) {
     return await axios.get(`${baseURL}/reservas-criadas-solicitante?idSolicitante=${idSolicitante}&bloco=${bloco}`)
 }
 
+export async function getReservasPendenteDeAprovacao(){
+    return await axios.get(`${baseURL}/reservas-pendente-aprovacao`)
+}
+
 export async function createReservas(idSala, idSolicitante, rangeReserva) {
 
     const data = {
@@ -47,4 +51,14 @@ export async function createReservas(idSala, idSolicitante, rangeReserva) {
 export async function desfazerReserva(idSala, idSolicitante){
     
     await axios.delete(`${baseURL}/reserva?idSala=${idSala}&idSolicitante=${idSolicitante}`)
+}
+
+export async function aprovarReserva(idReserva, idAprovador){
+    
+    await axios.put(`${baseURL}/reserva/aprovacao?idReserva=${idReserva}&idAprovador=${idAprovador}`)
+}
+
+export async function reprovarReserva(idReserva, idAprovador){
+    
+    await axios.put(`${baseURL}/reserva/reprovacao?idReserva=${idReserva}&idAprovador=${idAprovador}`)
 }

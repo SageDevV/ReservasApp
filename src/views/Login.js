@@ -14,7 +14,7 @@ export default _ => {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     const onPressNavigateTo = () => {
-        navigation.navigate('Cadastro')
+        navigation.navigate('Home')
     }
 
     const onPressSend = () => {
@@ -25,8 +25,7 @@ export default _ => {
             }
             else if (response.data.privilegio === 1) {
                 Alert.alert('Usuário encontrado.')
-                Alert.alert('Tela de aprovações não construida ainda.')
-                //Navegar para a tela de aprovação
+                navigation.navigate('ReservasParaAprovacoes', {idAprovador: response.data.id})
             }
             else {
                 Alert.alert('Usuario não encontrado.')

@@ -6,9 +6,9 @@ export default _ => {
     return (
         <View style={style.containerNavBar}>
             <TouchableOpacity style={style.buttonNavBar}>
-                <Text style={style.textButtonNavBar}>Aprovações</Text>
+                <Text style={style.textButtonNavBar}>Reservas</Text>
             </TouchableOpacity>
-            <Text style={style.textNavBar}>Bem vindo, Administrador</Text>
+            <Text style={style.textNavBar}>Bem vindo, Professor</Text>
         </View>
     )
 }

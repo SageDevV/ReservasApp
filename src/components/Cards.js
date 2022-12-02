@@ -17,6 +17,7 @@ export default (props) => {
                         props.setVisibleModal(true)
                         props.setModalType('Desfazer reserva')
                         props.setIdSala(value.idSala)
+                        props.setIdReserva(value.id)
                     }}>
                     <View style={style.containerTipoInfo}>
                         <Text style={style.tipoInfo}>Status</Text>

@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import { useRoute } from '@react-navigation/native';
 import { View, StyleSheet, Alert, Text } from 'react-native'
 
-import NavbarAprovacoes from '../components/NavbarAprovacoes'
-import FiltroAprovacoes from '../components/FiltroAprovacoes'
+import NavbarReservas from '../components/NavbarReservas'
+import FiltroReservas from '../components/FiltroReservas'
 import Cards from '../components/Cards'
 import ActionModal from '../components/ActionModal'
 import CriadorDeReserva from '../components/CriadorDeReserva'
@@ -46,8 +46,8 @@ export default _ => {
 
     return (
         <View style={style.containerReservas}>
-            <NavbarAprovacoes />
-            <FiltroAprovacoes bloco={bloco} setbloco={setbloco} setReserva={setReserva} mainInput={mainInput} idSolicitante={idSolicitante} />
+            <NavbarReservas />
+            <FiltroReservas bloco={bloco} setbloco={setbloco} setReserva={setReserva} mainInput={mainInput} idSolicitante={idSolicitante} />
             <Cards reserva={reserva} setVisibleModal={setVisibleModal} setIdSala={setIdSala} setModalType={setModalType} />
             <ActionModal visibleModal={visibleModal}>
                 {validateContentModal(modalType)}
