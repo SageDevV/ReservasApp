@@ -15,6 +15,7 @@ export default _ => {
 
     const [bloco, setbloco] = useState('')
     const [reserva, setReserva] = useState([])
+    const [idReserva, setIdReserva] = useState()
     const [idSala, setIdSala] = useState(0)
     const [visibleModal, setVisibleModal] = useState(false)
     const [modalType, setModalType] = useState('')
@@ -48,7 +49,7 @@ export default _ => {
         <View style={style.containerReservas}>
             <NavbarReservas />
             <FiltroReservas bloco={bloco} setbloco={setbloco} setReserva={setReserva} mainInput={mainInput} idSolicitante={idSolicitante} />
-            <Cards reserva={reserva} setVisibleModal={setVisibleModal} setIdSala={setIdSala} setModalType={setModalType} />
+            <Cards reserva={reserva} setVisibleModal={setVisibleModal} setIdSala={setIdSala} setModalType={setModalType} setIdReserva={setIdReserva} />
             <ActionModal visibleModal={visibleModal}>
                 {validateContentModal(modalType)}
             </ActionModal>

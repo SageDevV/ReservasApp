@@ -14,6 +14,7 @@ export default (props) => {
             return (
                 <TouchableOpacity style={style.card}
                     onPress={_ => {
+                        console.log(value)
                         props.setVisibleModal(true)
                         props.setModalType('Desfazer reserva')
                         props.setIdSala(value.idSala)

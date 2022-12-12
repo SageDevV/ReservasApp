@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = `http://192.168.2.105:45455/SalaReservas`
+const baseURL = `http://192.168.2.100:45455/SalaReservas`
 
 export async function getSalasDisponiveisPorBloco(bloco) {
 

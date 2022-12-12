@@ -36,6 +36,7 @@ export default _ => {
                     console.log(response)
                     navigation.navigate('Login')
                 }).catch(erro => {
+                    console.log(erro)
                     Alert.alert(`Ocorreu um erro no cadastro. ${erro}`)
                 })
             }
